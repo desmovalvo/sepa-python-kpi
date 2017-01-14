@@ -31,6 +31,9 @@ class Producer(KP):
         
         # update
         r = requests.post(self.httphost, data=self.update, headers={"Content-type":"application/sparql-update"})
-        print r
 
-        # TODO: return value
+        # return value
+        if r.status_code == 200:
+            return True
+        else:
+            return False

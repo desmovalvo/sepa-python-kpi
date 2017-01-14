@@ -3,6 +3,11 @@
 # local requirements
 from KP import *
 
+# global requiremets
+import json
+import requests
+
+
 # class Consumer
 class Consumer(KP):
 
@@ -21,14 +26,21 @@ class Consumer(KP):
 
 
     # query
-    def query(self):
+    def consume(self):
 
         """This method is used to query the KB"""
         
-        # TODO
-        pass
+        # update
+        r = requests.post(self.httphost, data=self.query, headers={"Content-type":"application/sparql-query"})
 
+        # return status and results
+        if r.status == 200:
+            return True, json.loads(r.text)
+        else:
+            return False, None
+        
 
+        
     # subscribe
     def subscribe(self):
 
